@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises</title>
+    <!-- Promises in JavaScript: -->
+
+<!-- Definition: A Promise is a built-in JavaScript object representing the eventual completion or failure of an asynchronous operation. It simplifies handling asynchronous operations and provides a more structured way to deal with callbacks.
+
+
+States:
+
+Promises have three states:
+Pending: Initial state, neither fulfilled nor rejected.
+Fulfilled: The operation completed successfully.
+Rejected: The operation failed.
+
+
+Methods:
+
+Promise.all() is used to handle multiple promises and wait for all of them to resolve.
+Promise.allSettled() waits for all promises to settle (resolve or reject).
+Promise.any() resolves with the result of the first resolved promise.
+Promise.race() resolves with the result of the first resolved promise among a set of promises.
+Promise.reject() and Promise.resolve() are used to create explicitly rejected and resolved promises.
+Promise.prototype.then() is used to handle a resolved promise.
+Promise.prototype.catch() is used to handle a rejected promise.
+Promise.prototype.finally() is used to perform cleanup actions regardless of the promise's state. -->
+
+</head>
+<body>
+    <script>
+    // Simulated asynchronous functions with different delays
+function fetchUserData(userId) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const user = { id: userId, name: 'John' };
+      resolve(user);
+    }, 1000);
+  });
+}
+
+function simulateError() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error('Simulated Error'));
+    }, 500);
+  });
+}
+
+// Using Promise.all() to handle multiple promises, including a rejected promise
+const allPromises = [fetchUserData(1), simulateError(), fetchUserData(2)];
+Promise.all(allPromises)
+  .then((results) => {
+    console.log('Promise.all() Results:', results);
+  })
+  .catch((error) => {
+    console.error('Promise.all() Error:', error.message);
+  });
+
+// Using Promise.allSettled() to wait for all promises to settle, including a rejected promise
+const settledPromises = [fetchUserData(1), simulateError(), fetchUserData(2)];
+Promise.allSettled(settledPromises)
+  .then((results) => {
+    console.log('Promise.allSettled() Results:', results);
+  });
+
+// Using Promise.any() to get the first resolved promise, ignoring the rejected one
+const anyPromises = [fetchUserData(1), simulateError(), fetchUserData(2)];
+Promise.any(anyPromises)
+  .then((result) => {
+    console.log('Promise.any() Result:', result);
+  })
+  .catch((errors) => {
+    console.error('Promise.any() Error:', errors);
+  });
+
+// Using Promise.race() to get the result of the first resolved promise, including the rejected one
+const racePromises = [fetchUserData(1), simulateError(), fetchUserData(2)];
+Promise.race(racePromises)
+  .then((result) => {
+    console.log('Promise.race() Result:', result);
+  })
+  .catch((error) => {
+    console.error('Promise.race() Error:', error.message);
+  });
+
+// Using Promise.reject() to create a rejected promise
+const rejectedPromise = Promise.reject(new Error('Rejected Promise'));
+rejectedPromise.catch((error) => {
+  console.error('Promise.reject() Error:', error.message);
+});
+
+// Using Promise.resolve() to create a resolved promise
+const resolvedPromise = Promise.resolve('Resolved Value');
+resolvedPromise.then((result) => {
+  console.log('Promise.resolve() Result:', result);
+});
+
+// Using Promise.prototype.then() to handle a resolved promise
+const thenPromise = fetchUserData(3);
+thenPromise.then((result) => {
+  console.log('Promise.prototype.then() Result:', result);
+});
+
+// Using Promise.prototype.catch() to handle a rejected promise
+const catchPromise = fetchUserData(4); // Simulate a failed request
+catchPromise.catch((error) => {
+  console.error('Promise.prototype.catch() Error:', error.message);
+});
+
+// Using Promise.prototype.finally() to perform cleanup
+const finallyPromise = fetchUserData(5);
+finallyPromise.finally(() => {
+  console.log('Promise.prototype.finally() Cleanup');
+});
+
+    </script>
+</body>
+</html>

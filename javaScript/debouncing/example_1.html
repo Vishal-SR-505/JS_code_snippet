@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debouncings</title>
+  <!-- Debounce function limits the execution of a function call and waits for a certain amount of time before running it again. -->
+
+  <!-- <link rel="stylesheet" href="./style.css"> -->
+</head>
+
+<body>
+  <div style="display: flex;flex-direction: column;gap: 10px;width: 300px;">
+    <label>
+      Optimised Search Using Debounce:
+    </label>
+    <input class="search-bar" oninput="optimisedSearchHandler(event);" />
+    <p>Searching By: <span id="searchBy"></span></p>
+  </div>
+ <script>
+    const getSearchResults = (value) => {
+      console.log("search by --> ", value);
+      document.getElementById("searchBy").innerText = value;
+    };
+
+    function searchHandler(event) {
+      /* Capture the search query entered by the customer */
+      const { value } = event.target;
+      console.log("this :: ",this)
+      /* Make an API call with the search query */
+      getSearchResults(value);
+    }
+
+    const debounceFunc = (func, delay) => {
+      let timer;
+      const obj={
+        name:"vishal"
+      }
+      return function (...args) {
+        console.log("args :: ",...args)
+        const context = this;
+        console.log("context :: ",context)
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(obj, args);
+        }, delay);
+      };
+    };
+
+    const optimisedSearchHandler = debounceFunc(searchHandler, 500);
+  </script>
+  <!-- <script>
+    const resultsDiv = document.getElementById('searchBy');
+    const getSearchResults = (value) => {
+      resultsDiv.innerText = value;
+    };
+
+    const debounce = (func, delay) => {
+      let timeout;
+      return function (event) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func(event.target.value);
+        }, delay);
+      };
+    };
+
+    const optimisedSearchHandler = debounce(getSearchResults, 1000);
+  </script> -->
+</body>
+
+</html>

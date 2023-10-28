@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Higher-Order Function</title>
+    <!-- A higher order function is a function that takes one or more functions as arguments, or returns a function as its result.
+There are several different types of higher order functions like map and reduce. -->
+
+</head>
+
+<body>
+    <button id="myButton">Click Me</button>
+    <input type="text" id="transValue" />
+    <button onclick="transform();">higherOrderFunction</button>
+    <div id="message"></div>
+
+    <script>
+        // Higher-order function to create a click handler
+        function createClickHandler(message) {
+            return function () {
+                const messageDiv = document.getElementById("message");
+                messageDiv.textContent = message;
+            };
+        }
+
+        const myButton = document.getElementById("myButton");
+
+        // Attach a click event handler using the higher-order function
+        myButton.addEventListener("click", createClickHandler("Button Clicked!"));
+
+
+        const upperCaseFn = (str) => {
+            return str.toUpperCase();
+        }
+        const higherOrderFunction = (func, str) => {
+            console.log("transformed value :: ", func(str))
+            let messageValue = func(str)
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = messageValue;
+        }
+        const transform = () => {
+            let stringValue = document.getElementById("transValue").value;
+            // higher-order function
+            higherOrderFunction(upperCaseFn, stringValue);
+        }
+
+        const functionThatReturnFunction = (data) => {
+            console.log("data :: ", data);
+            return function (...args) {
+                console.log("args :: ", args);
+                return data + " " + args.join('')
+            };
+        };
+        const finalFunctionThatReturnFunction = functionThatReturnFunction("vishal");
+        console.log("finalFunctionThatReturnFunction :: ", finalFunctionThatReturnFunction("jazz"));
+
+    </script>
+</body>
+
+</html>

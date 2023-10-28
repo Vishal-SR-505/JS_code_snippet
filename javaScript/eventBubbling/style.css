@@ -1,0 +1,16 @@
+body {
+    padding: 20px;
+    border: 1px solid pink;
+  }
+  
+  div {
+    padding: 20px;
+    border: 1px solid green;
+    width: max-content;
+  }
+  
+  span {
+    display: block;
+    padding: 20px;
+    border: 1px solid blue;
+  }

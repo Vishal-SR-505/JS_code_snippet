@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply</title>
+
+    <!-- The apply method is similar to call, but it allows you to invoke a function with a specific this context and pass arguments as an array or array-like object.
+Syntax: function.apply(thisArg, [arg1, arg2, ...])
+thisArg: The value that will be used as the this context within the function.
+[arg1, arg2, ...]: An array or array-like object containing the arguments to be passed to the function. -->
+
+</head>
+
+<body>
+    <script>
+        var person = {
+            firstname: 'Vishal',
+            lastname: 'SR',
+            getPersonName: function () {
+                var fullname = this.firstname + ' ' + this.lastname;
+                return fullname;
+            }
+        };
+
+        var personName = function (snack, hobby) {
+            console.log(this.getPersonName() + ' loves ' + snack + ' and ' + hobby);
+        };
+        personName.apply(person, ['sushi', 'algorithms']); // Vishal SR loves sushi and algorithms
+    </script>
+</body>
+
+</html>

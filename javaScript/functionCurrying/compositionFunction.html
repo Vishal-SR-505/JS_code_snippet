@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>composition function</title>
+
+    <!-- Function composition is the process of combining two or more functions to produce a new function.  -->
+    
+</head>
+<body>
+    <script>
+//         // Function to double a number
+// const double = (number) => number * 2;
+
+// // Function to add 5 to a number
+// const add5 = (number) => number + 5;
+
+// // Function composition utility
+// const compose = (func1, func2) => (input) => func1(func2(input));
+
+// // Compose the functions to create a new function
+// const doubleAndThenAdd5 = compose(add5, double);
+
+// // Use the composed function
+// const result = doubleAndThenAdd5(10);
+// console.log(result); // Output: 25 (10 * 2 + 5)
+
+
+// Function to double a number
+function double(number) {
+  return number * 2;
+}
+
+// Function to add 5 to a number
+function add5(number) {
+  return number + 5;
+}
+
+// Function composition utility
+function compose(func1, func2) {
+  return function(input) {
+    return func1(func2(input));
+  };
+}
+
+// Compose the functions to create a new function
+const doubleAndThenAdd5 = compose(add5, double);
+
+// Use the composed function
+const result = doubleAndThenAdd5(10);
+console.log(result); // Output: 25 (10 * 2 + 5)
+
+
+    </script>
+</body>
+</html>

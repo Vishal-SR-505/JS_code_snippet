@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Throttled Button Click with Incremented Value</title>
+  <!-- Throttling is also used to rate-limit the function call. -->
+</head>
+<body>
+  <button id="myButton">Click Me (Throttled)</button>
+  <div id="output">Incremented Value: 0</div>
+
+  <script>
+    function throttle(func, delay) {
+      let isThrottled = false;
+      return function (...args) {
+        let context = this
+        console.log("args :: ",args)
+        if (!isThrottled) {
+          func.apply(context,args);
+          isThrottled = true;
+          setTimeout(() => {
+            isThrottled = false;
+          }, delay);
+        }
+      };
+    }
+
+    const button = document.getElementById("myButton");
+    const output = document.getElementById("output");
+
+    let incrementedValue = 0;
+
+    // Throttle the button click event
+    const throttledClick = throttle(function (data) {
+      incrementedValue++;
+      output.textContent = `Incremented Value: ${incrementedValue} ${data}`;
+    }, 2000); // Throttle for 2 seconds
+
+    const trigger = ()=>{
+        let arguments = "vishal"
+        throttledClick(arguments)
+    }
+    button.addEventListener("click", trigger);
+  </script>
+</body>
+</html>

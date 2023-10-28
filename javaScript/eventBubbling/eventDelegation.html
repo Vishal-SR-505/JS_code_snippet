@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- Normal Click Event -->
+    <div>
+        <p>Normal Click Event</p>
+        <button class="normal_click_event">Button 1</button>
+        <button class="normal_click_event">Button 2</button>
+        <button class="normal_click_event">Button 3</button>
+    </div>
+
+    <!-- Event Delegation -->
+    <div id="event_delegation">
+        <p>Event Delegation</p>
+        <button>Button 4</button>
+        <button>Button 5</button>
+        <button>Button 6</button>
+    </div>
+
+    <!-- Stop Propagation -->
+    <div id="parent_stopPropagation">
+        <p>Stop Propagation</p>
+        <button id="child_stopPropagation">Click me stopPropagation</button>
+    </div>
+
+    <!-- Stop Immdediate Propagation -->
+    <div id="parent_stopImmediatePropagation">
+        <p>Stop Immdediate Propagation</p>
+        <button id="child_stopImmediatePropagation">Click me stopImmediatePropagation</button>
+    </div>
+
+    <script>
+
+
+        // Stop Propagation
+        const parent_stopPropagation = document.getElementById("parent_stopPropagation");
+        const child_stopPropagation = document.getElementById("child_stopPropagation");
+
+        parent_stopPropagation.addEventListener("click", function (event) {
+            alert("parent_stopPropagation click event 1");
+            event.stopPropagation();
+        });
+        parent_stopPropagation.addEventListener("click", function (event) {
+            alert("parent_stopPropagation click event 2");
+            // event.stopPropagation();
+        });
+        child_stopPropagation.addEventListener("click", function (event) {
+            alert("child_stopPropagation click event");
+        });
+
+
+        // Stop Immdediate Propagation
+        const parent_stopImmediatePropagation = document.getElementById("parent_stopImmediatePropagation");
+        const child_stopImmediatePropagation = document.getElementById("child_stopImmediatePropagation");
+
+        parent_stopImmediatePropagation.addEventListener("click", function (event) {
+            alert("parent_stopImmediatePropagation click event");
+        });
+
+        parent_stopImmediatePropagation.addEventListener("click", function (event) {
+            alert("Another parent_stopImmediatePropagation click event");
+        });
+
+        child_stopImmediatePropagation.addEventListener("click", function (event) {
+            alert("child_stopImmediatePropagation click event");
+            event.stopImmediatePropagation();
+        });
+
+
+        // Event Delegation
+        const div = document.getElementById('event_delegation')
+
+        div.addEventListener("click", (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                console.log(`Event Delegation ${event.target.innerText}`)
+            }
+        })
+
+
+        // Normal Click Event
+        const buttons = document.querySelectorAll('.normal_click_event')
+
+        buttons.forEach(button => {
+            button.addEventListener("click", (event) => {
+                console.log(event.target.innerText)
+            })
+        })
+
+
+    </script>
+</body>
+
+</html>

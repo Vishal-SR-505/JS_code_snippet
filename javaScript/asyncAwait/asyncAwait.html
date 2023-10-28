@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Await</title>
+</head>
+<body>
+    <script>
+        // 1. Basic Async/Await:
+        async function fetchData() {
+  try {
+    const result = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+    const data = await result.json();
+    console.log('Data:', data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+fetchData();
+// 2. Sequential Execution:
+async function sequentialOperations() {
+  try {
+    const result1 = await asyncOperation1();
+    const result2 = await asyncOperation2(result1);
+    console.log('Result 1:', result1);
+    console.log('Result 2:', result2);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// 3. Parallel Execution:
+async function parallelOperations() {
+  try {
+    const [result1, result2] = await Promise.all([asyncOperation1(), asyncOperation2()]);
+    console.log('Result 1:', result1);
+    console.log('Result 2:', result2);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+parallelOperations();
+// 4. Async Iteration:
+async function iterateData() {
+  const data = [1, 2, 3, 4, 5];
+  for (const item of data) {
+    const result = await asyncOperation(item);
+    console.log('Result:', result);
+  }
+}
+
+// 5. Error Handling:
+async function handleErrors() {
+  try {
+    const result = await asyncOperation();
+    if (result.error) {
+      throw new Error('Operation failed');
+    }
+    console.log('Result:', result);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// // 6. Promisify Callbacks:
+// const util = require('util');
+// const fs = require('fs');
+
+// const readFileAsync = util.promisify(fs.readFile);
+
+// async function readAsyncFile() {
+//   try {
+//     const data = await readFileAsync('example.txt', 'utf8');
+//     console.log('File Contents:', data);
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// }
+
+    </script>
+</body>
+</html>

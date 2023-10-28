@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event bubbling</title>
+     <!-- Event Bubbling:
+ Event Bubbling is a concept in the DOM (Document Object Model). It happens when an element receives an event, and that event bubbles up (or you can say is transmitted or propagated) to its parent and ancestor elements in the DOM tree until it gets to the root element.
+
+ stopPropagation:
+ This is the default behavior of events on elements unless you stop the propagation
+
+ The standard DOM Events describes 3 phases of event propagation:
+ Capturing phase – the event goes down to the element.
+ Target phase – the event reached the target element.
+ Bubbling phase – the event bubbles up from the element. -->
+
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <style>
+      body * {
+        margin: 10px;
+        border: 1px solid blue;
+      }
+    </style>
+</head>
+<!-- <body>
+    <form>FORM
+        <div>DIV
+          <p>P</p>
+        </div>
+      </form>
+      
+      <script>
+        for(let elem of document.querySelectorAll('*')) {
+            console.log("elem :: ",elem)
+          elem.addEventListener("click", e => alert(`Capturing: ${elem.tagName}`), true);
+          elem.addEventListener("click", e => alert(`Bubbling: ${elem.tagName}`));
+        }
+      </script>
+</body> -->
+
+<body>
+  <div data-unique="Parent" id="event_capture_bubbling">
+    <div data-unique="Parent div">
+    Parent div
+    <div data-unique="div child sibling 1">div child sibling 1
+      <div data-unique="div sibling 1 -> child 1">div sibling 1 -> child 1
+        <div data-unique="Additional Nested Element 1">Additional Nested Element 1</div>
+      </div>
+    </div>
+    <div data-unique="div child sibling 2">div child sibling 2
+      <div data-unique="div sibling 2 -> child 2">div sibling 2 -> child 2
+        <div data-unique="Additional Nested Element 2">Additional Nested Element 2</div>
+      </div>
+    </div>
+    <div data-unique="div child sibling 3">div child sibling 3
+      <div data-unique="div sibling 3 -> child 3">div sibling 3 -> child 3
+        <div data-unique="Additional Nested Element 3">Additional Nested Element 3</div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('event_capture_bubbling');
+    const elements = container.getElementsByTagName('div');
+
+    for (let elem of elements) {
+      // elem.addEventListener('click', e => {
+      //   alert(`Capturing ⬇️ : ${elem.innerText}`);
+      //   // e.stopPropagation(); // Prevent further capturing propagation
+      // }, true);
+
+      elem.addEventListener('click', e => {
+        // e.stopPropagation()
+        const uniqueData = elem.getAttribute('data-unique');
+        alert(`You clicked : ${uniqueData}`);
+        // 
+        // alert(`Bubbling ⬆️ : ${elem.innerText}`);
+      });
+    }
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+<!-- 1. capturing : HTML
+2. capturing : body
+3. capturing : Parent div
+4. capturing:  div child sibling 1
+5. capturing: div sibling 1 - child 1
+6. capturing: Additional Nested Element 1
+7. Bubbling: Additional Nested Element 1
+8. Bubbling: div sibling 1 - child 1
+9. Bubbling:  div child sibling 1
+10. Bubbling : Parent div
+11. Bubbling : body
+12. Bubbling : HTML -->

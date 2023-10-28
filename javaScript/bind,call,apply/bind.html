@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bind</title>
+    
+    <!-- The bind method creates a new function that, when invoked, has a specific this context and, optionally, initial arguments.
+Syntax: function.bind(thisArg, arg1, arg2, ...)
+thisArg: The value that will be used as the this context within the new function.
+arg1, arg2, ...: Optional arguments that you can pre-fill in the new function.
+Returns a new function with the specified this context and optional pre-filled arguments. -->
+
+</head>
+
+<body>
+    <script>
+        var person = {
+            firstname: 'Vishal',
+            lastname: 'SR ',
+            getPersonName: function () {
+                var fullname = this.firstname + ' ' + this.lastname;
+                return fullname;
+            }
+        };
+
+        var pokemonName = function (snack, hobby) {
+            console.log(this.getPersonName() + 'I choose you!');
+            console.log(this.getPersonName() + ' loves ' + snack + ' and ' + hobby);
+        };
+
+        var logPersonData = pokemonName.bind(person); // creates new object and binds person. 'this' of person === person now
+
+        logPersonData('sushi', 'algorithms'); // Vishal SR  loves sushi and algorithms
+    </script>
+</body>
+
+</html>

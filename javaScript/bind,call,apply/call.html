@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call</title>
+
+    <!-- The call method is a built-in JavaScript function that allows you to invoke a function with a specific this context and pass arguments individually.
+Syntax: function.call(thisArg, arg1, arg2, ...)
+thisArg: The value that will be used as the this context within the function.
+arg1, arg2, ...: Optional arguments that you can pass to the function. -->
+
+</head>
+
+<body>
+    <script>
+
+
+        var person = {
+            firstname: 'Vishal',
+            lastname: 'SR ',
+            getPersonFullName: function () {
+                var fullname = this.firstname + ' ' + this.lastname;
+                return fullname;
+            }
+        };
+
+        var getDataValue = function (snack, hobby) {
+            console.log(this.getPersonFullName() + ' loves ' + snack + ' and ' + hobby);
+        };
+
+        getDataValue.call(person, 'sushi', 'algorithms'); // Vishal SR  loves sushi and algorithms
+    </script>
+</body>
+
+</html>

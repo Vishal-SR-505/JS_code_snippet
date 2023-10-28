@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>function currying</title>
+    <!-- Currying is a technique used in functional programming where a function that takes 
+    multiple arguments is transformed into a series of functions that take a single argument. -->
+</head>
+<body>
+    <script>
+        // A simple non-curried function
+function add(a, b, c) {
+  return a + b + c;
+}
+
+// Using currying to transform the function
+function curryAdd(a) {
+  return function(b) {
+    return function(c) {
+      return a + b + c;
+    };
+  };
+}
+
+// Usage of the curried function
+const curriedAdd = curryAdd(2); // Pass the first argument
+const result = curriedAdd(3)(4); // Pass the remaining arguments
+console.log(result);
+    </script>
+</body>
+</html>
